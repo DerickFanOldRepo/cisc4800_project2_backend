@@ -98,6 +98,13 @@ public class MainController {
         return categoryRepository.getAllCategories();
     }
 
+    // GET REQUEST
+    // RETURNS THE REQUESTED CATEGORY
+    @GetMapping(path = "/getCategory")
+    public @ResponseBody Category getCategory(String name) {
+        return categoryRepository.getCategoryByName(name);
+    }
+
     // POST REQUEST
     // PARAM: NAME
     // INSERTS A NEW CATEGORY INTO THE DATABASE
@@ -123,6 +130,30 @@ public class MainController {
     @GetMapping(path = "/getAllItems")
     public @ResponseBody List<Item> getAllItems() {
         return itemRepository.getAllItems();
+    }
+
+    // POST REQUEST
+    // PARAM: NAME, CATEGORYNAME
+    // ADDS AN ITEM TO THE TABLE
+    @PostMapping(value="/addItem")
+    public @ResponseBody int addItem(@RequestParam String name, @RequestParam String categoryName) {
+        return itemRepository.addItem(name, categoryName)  ;
+    }
+
+    // DELETE REQUEST
+    // PARAM: NAME
+    // DELETES ITEM IN THE TABLE
+    @DeleteMapping(path = "/deleteItem")
+    public @ResponseBody int deleteItem(@RequestParam String name) {
+        return itemRepository.deleteItem(name);
+    }
+    
+    // POST REQUEST
+    // PARAM: NAME, NEWCATEGORYNAME
+    // UPDATES ITEM'S CATEGORY
+    @PostMapping(path = "/updateItemCategory")
+    public @ResponseBody int updateItemCategory(@RequestParam String name, @RequestParam String newCategoryName) {
+        return itemRepository.updateCategory(name, newCategoryName);
     }
 
 }

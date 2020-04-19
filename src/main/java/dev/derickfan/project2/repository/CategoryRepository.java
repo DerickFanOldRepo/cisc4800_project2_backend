@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -17,24 +19,50 @@ public class CategoryRepository {
     @Autowired
     private JdbcTemplate jdbc;
 
+    // Returns 1 if category has been added to the table
+    // Returns 0 if category already exists
     public int addCategory(String name) {
         String sql = "INSERT INTO CATEGORIES VALUES (null, ?)";
-        return jdbc.update(sql, name);
+        try {
+            return jdbc.update(sql, name);
+        } catch (DuplicateKeyException e) {
+            return 0;
+        }
     }
 
+    // Returns 1 if the entry has been deleted
+    // Returns 0 if category does not exist
     public int deleteCategory(String name) {
         String sql = "DELETE FROM CATEGORIES WHERE NAME = ?";
         return jdbc.update(sql, name);
     }
 
+    // Returns a list of all categories
     public List<Category> getAllCategories() {
         String sql = "SELECT * FROM CATEGORIES";
         return jdbc.query(sql, new CategoryMapper());
     }
 
-    public Category getCategory(int category_id) {
+    // Returns the category by the name
+    // Returns null if it does not exist
+    public Category getCategoryByName(String name) {
+        String sql = "SELECT * FROM CATEGORIES WHERE NAME = ?";
+        try {
+            return jdbc.queryForObject(sql, new Object[]{name}, new CategoryMapper());
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
+
+    // Returns the category by the id
+    // Returns null if it does not exist
+    public Category getCategoryByID(int category_id) {
         String sql = "SELECT * FROM CATEGORIES WHERE ID = ?";
-        return jdbc.queryForObject(sql, new Object[]{category_id}, new CategoryMapper());
+        try {
+            return jdbc.queryForObject(sql, new Object[]{category_id}, new CategoryMapper());
+        } catch(EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     private static final class CategoryMapper implements RowMapper<Category> {
