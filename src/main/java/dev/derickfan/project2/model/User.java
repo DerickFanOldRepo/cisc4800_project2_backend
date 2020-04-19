@@ -1,17 +1,17 @@
-package dev.derickfan.project2;
+package dev.derickfan.project2.model;
 
 public class User {
 
     // Instances variables
     private int id;
-    private String name;
+    private String username;
     private String password;
     private String email;
 
     // Constructor
-    public User(int id, String name, String password, String email) {
+    public User(int id, String username, String password, String email) {
         this.id = id;
-        this.name = name;
+        this.username = username;
         this.password = password;
         this.email = email;
     }
@@ -28,12 +28,12 @@ public class User {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
