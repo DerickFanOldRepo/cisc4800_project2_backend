@@ -59,14 +59,14 @@ public class CategoryRepository {
     public Category getCategoryByID(int category_id) {
         String sql = "SELECT * FROM CATEGORIES WHERE ID = ?";
         try {
-            return jdbc.queryForObject(sql, new Object[]{category_id}, new CategoryMapper());
+            return jdbc.queryForObject(sql, new CategoryMapper(), category_id);
         } catch(EmptyResultDataAccessException e) {
             return null;
         }
     }
 
-    private static final class CategoryMapper implements RowMapper<Category> {
-        
+    private final class CategoryMapper implements RowMapper<Category> {
+
         @Override
         public Category mapRow(ResultSet resultSet, int rowNum) throws SQLException {
             Category category = new Category();

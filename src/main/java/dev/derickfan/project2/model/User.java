@@ -5,15 +5,15 @@ public class User {
     // Instances variables
     private int id;
     private String username;
-    private String password;
     private String email;
+    private String password;
 
     // Constructor
-    public User(int id, String username, String password, String email) {
+    public User(int id, String username, String email, String password) {
         this.id = id;
         this.username = username;
-        this.password = password;
         this.email = email;
+        this.password = password;
     }
 
     // Default Constructor
@@ -36,20 +36,20 @@ public class User {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
-    }
-    
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
 }

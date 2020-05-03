@@ -21,6 +21,24 @@ public class UserRepository {
         String sql = "INSERT INTO USERS VALUES (null, ?, ?, ?)";
         return jdbc.update(sql, username, email, password);
     }
+
+    // Returns all the user entries in the table
+    public List<User> getAllUsers() {
+        String sql = "SELECT * FROM USERS";
+        return jdbc.query(sql, new UserMapper());
+    }
+
+    // Returns a user by the username
+    public User getUserByUsername(String username) {
+        String sql = "SELECT * FROM USERS WHERE USERNAME = ?";
+        return jdbc.queryForObject(sql, new Object[]{username}, new UserMapper());
+    }
+
+    // Returns a user by the id
+    public User getUserById(int id) {
+        String sql = "SELECT * FROM USERS WHERE ID = ?";
+        return jdbc.queryForObject(sql, new UserMapper(), id);
+    }
     
     // Updates the user's password after confirming old password
     public int updatePassword(String username, String oldPassword, String newPassword) {
@@ -48,31 +66,19 @@ public class UserRepository {
         String sql = "DELETE FROM USERS WHERE USERNAME = ?";
         return jdbc.update(sql, username);
     }
-    
-    // Returns all the user entries in the table
-    public List<User> getAllUsers() {
-        String sql = "SELECT * FROM USERS";
-        return jdbc.query(sql, new UserMapper());
-    }
-    
-    // Returns a user by the username
-    public User getUser(String username) {
-        String sql = "SELECT * FROM USERS WHERE USERNAME = ?";
-        return jdbc.queryForObject(sql, new Object[]{username}, new UserMapper());
-    }
-    
-    private static final class UserMapper implements RowMapper<User> {
-        
+
+    private final class UserMapper implements RowMapper<User> {
+
         @Override
         public User mapRow(ResultSet resultSet, int rowNum) throws SQLException {
             User user = new User();
             user.setId(resultSet.getInt("ID"));
             user.setUsername(resultSet.getString("USERNAME"));
-            user.setPassword(resultSet.getString("PASSWORD"));
             user.setEmail(resultSet.getString("EMAIL"));
+            user.setPassword(resultSet.getString("PASSWORD"));
             return user;
         }
-        
+
     }
-    
+
 }
