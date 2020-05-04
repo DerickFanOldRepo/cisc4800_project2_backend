@@ -34,7 +34,7 @@ public class MainController {
     @Autowired
     ListingRepository listingRepository;
 
-    @GetMapping(path = "/test")
+    @GetMapping(path = "/")
     public @ResponseBody String test() {
         return "Hello world!";
     }
