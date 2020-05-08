@@ -4,17 +4,12 @@ import java.util.List;
 
 import dev.derickfan.project2.model.*;
 import dev.derickfan.project2.repository.*;
+import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
-
+@CrossOrigin
 @RestController
 @RequestMapping
 public class MainController {
@@ -46,8 +41,10 @@ public class MainController {
     // GET REQUEST
     // RETURNS A LIST OF ALL USER
     @GetMapping(path = "/getAllUsers")
-    public @ResponseBody List<User> getAllUsers() {
-        return userRepository.getAllUsers();
+    public @ResponseBody JSONObject getAllUsers() {
+        JSONObject json = new JSONObject();
+        json.put("data", userRepository.getAllUsers());
+        return json;
     }
 
     // GET REQUEST
@@ -97,8 +94,10 @@ public class MainController {
     // GET REQUEST
     // RETURNS A LIST OF ALL THE CATEGORIES
     @GetMapping(path = "/getAllCategories")
-    public @ResponseBody List<Category> getAllCategories() {
-        return categoryRepository.getAllCategories();
+    public @ResponseBody JSONObject getAllCategories() {
+        JSONObject json = new JSONObject();
+        json.put("data", categoryRepository.getAllCategories());
+        return json;
     }
 
     // GET REQUEST
@@ -131,8 +130,10 @@ public class MainController {
     // GET REQUEST
     // RETURNS A LIST OF ALL THE ITEMS
     @GetMapping(path = "/getAllItems")
-    public @ResponseBody List<Item> getAllItems() {
-        return itemRepository.getAllItems();
+    public @ResponseBody JSONObject getAllItems() {
+        JSONObject json = new JSONObject();
+        json.put("data", itemRepository.getAllItems());
+        return json;
     }
 
     // POST REQUEST
@@ -173,7 +174,11 @@ public class MainController {
     ----------------------------------*/
 
     @GetMapping(path = "/getAllItemImages")
-    public @ResponseBody List<ItemImage> getAllItemImages() { return itemImageRepository.getAllItemImages(); }
+    public @ResponseBody JSONObject getAllItemImages() {
+        JSONObject json = new JSONObject();
+        json.put("data", itemImageRepository.getAllItemImages());
+        return json;
+    }
 
     @DeleteMapping(path = "/deleteItemImageById")
     public @ResponseBody int deleteItemImage(@RequestParam int itemImageId) {
@@ -192,7 +197,11 @@ public class MainController {
     }
 
     @GetMapping(path = "/getAllListings")
-    public @ResponseBody List<Listing> getAllListings() { return listingRepository.getAllListings(); }
+    public @ResponseBody JSONObject getAllListings() {
+        JSONObject json = new JSONObject();
+        json.put("data", listingRepository.getAllListings());
+        return json;
+    }
 
     @GetMapping(path = "/getAllListingsByUser")
     public @ResponseBody List<Listing> getAllListingsByUser(String username) {

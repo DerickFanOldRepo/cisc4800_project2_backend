@@ -14,12 +14,6 @@ import java.util.List;
 public class ListingRepository {
 
     @Autowired
-    private ItemRepository itemRepository;
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
     JdbcTemplate jdbc;
 
     public int addListing(int userId, int itemId, double price, int quantity) {
@@ -42,7 +36,7 @@ public class ListingRepository {
     }
 
     public List<Listing> getAllListings() {
-        String sql = "SELECT * FROM LISTINGS";
+        String sql = "SELECT * FROM LISTINGVIEW";
 
         return jdbc.query(sql, new ListingMapper());
     }
@@ -71,10 +65,11 @@ public class ListingRepository {
         public Listing mapRow(ResultSet resultSet, int rowNum) throws SQLException {
             Listing listing = new Listing();
             listing.setId(resultSet.getInt("ID"));
-            listing.setItem(itemRepository.getItemById(resultSet.getInt("ITEM_ID")));
-            listing.setUser(userRepository.getUserById(resultSet.getInt("USER_ID")));
+            listing.setUsername(resultSet.getString("USERNAME"));
+            listing.setItemName(resultSet.getString("NAME"));
             listing.setPrice(resultSet.getDouble("PRICE"));
-            listing.setQuantity(resultSet.getInt("QUANTITY"));
+            listing.setUrl(resultSet.getString("URL"));
+            listing.setCategory(resultSet.getString("CATEGORY"));
             return listing;
         }
 

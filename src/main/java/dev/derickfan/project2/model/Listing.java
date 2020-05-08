@@ -3,20 +3,22 @@ package dev.derickfan.project2.model;
 public class Listing {
 
     private int id;
-    private User user;
-    private Item item;
+    private String username;
+    private String itemName;
     private double price;
-    private int quantity;
+    private String category;
+    private String url;
 
-    public Listing(int id, User user, Item item, double price, int quantity) {
+    public Listing(int id, String username, String itemName, double price, String category, String url) {
         this.id = id;
-        this.user = user;
-        this.item = item;
+        this.username = username;
+        this.itemName = itemName;
         this.price = price;
-        this.quantity = quantity;
+        this.category = category;
+        this.url = url;
     }
 
-    public Listing() { }
+    public Listing() {}
 
     public int getId() {
         return id;
@@ -26,20 +28,20 @@ public class Listing {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public Item getItem() {
-        return item;
+    public String getItemName() {
+        return itemName;
     }
 
-    public void setItem(Item item) {
-        this.item = item;
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
     }
 
     public double getPrice() {
@@ -50,11 +52,19 @@ public class Listing {
         this.price = price;
     }
 
-    public int getQuantity() { return quantity; }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public String getCategory() {
+        return category;
     }
 
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 }

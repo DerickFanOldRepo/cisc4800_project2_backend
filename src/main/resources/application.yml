@@ -1,5 +1,8 @@
 spring:
   datasource:
-    url: ${host}
-    username: ${username}
-    password: ${password}
+#    url: ${host}
+#    username: ${username}
+#    password: ${password}
+    url: ${localHost}
+    username: ${localUsername}
+    password: ${localPassword}
