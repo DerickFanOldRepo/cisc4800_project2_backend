@@ -2,6 +2,7 @@ package dev.derickfan.project2;
 
 import java.util.List;
 
+import com.fasterxml.jackson.databind.exc.InvalidDefinitionException;
 import dev.derickfan.project2.model.*;
 import dev.derickfan.project2.repository.*;
 import net.minidev.json.JSONObject;
@@ -51,8 +52,34 @@ public class MainController {
     // PARAM: NAME
     // RETURNS A USER WITH THE GIVEN NAME 
     @GetMapping(path = "/getUser")
-    public @ResponseBody User getUser(@RequestParam String username) {
-        return userRepository.getUserByUsername(username);
+    public @ResponseBody JSONObject getUser(@RequestParam String username) {
+        JSONObject json = new JSONObject();
+        json.put("data", userRepository.getUserByUsername(username));
+        return json;
+    }
+
+    @GetMapping(path = "/login")
+    public @ResponseBody JSONObject login(@RequestParam String username, @RequestParam String password) {
+        JSONObject json = new JSONObject();
+        try {
+            User user = userRepository.authenticate(username, password);
+            json.put("data", user);
+        } catch (Exception e) {
+            json.put("error", "LOGIN ERROR");
+        }
+        return json;
+    }
+
+    @PostMapping(path = "/signup")
+    public @ResponseBody JSONObject login(@RequestParam String username, @RequestParam String email, @RequestParam String password) {
+        JSONObject json = new JSONObject();
+        try {
+            User user = userRepository.signup(username, email, password);
+            json.put("data", user);
+        } catch (Exception e) {
+            json.put("error", "SIGN UP ERROR");
+        }
+        return json;
     }
 
     // POST REQUEST
@@ -140,7 +167,7 @@ public class MainController {
     // PARAM: NAME, CATEGORYNAME
     // ADDS AN ITEM TO THE TABLE
     @PostMapping(value="/addItem")
-    public @ResponseBody int addItem(@RequestParam String name, @RequestParam String categoryName, @RequestParam String itemImageUrl) {
+    public @ResponseBody JSONObject addItem(@RequestParam String name, @RequestParam String categoryName, @RequestParam String itemImageUrl) {
         ItemImage itemImage;
         try {
             itemImage = itemImageRepository.getItemImageByUrl(itemImageUrl);
@@ -149,7 +176,15 @@ public class MainController {
             itemImage = itemImageRepository.getItemImageByUrl(itemImageUrl);
         }
         Category category = categoryRepository.getCategoryByName(categoryName);
-        return itemRepository.addItem(name, category.getId(), itemImage.getId());
+
+        JSONObject json = new JSONObject();
+        try {
+            int data = itemRepository.addItem(name, category.getId(), itemImage.getId());
+            json.put("data", data);
+        } catch (Exception e) {
+            json.put("error", "ADDING ITEM ERROR");
+        }
+        return json;
     }
 
     // DELETE REQUEST
@@ -190,10 +225,17 @@ public class MainController {
     ----------------------------------*/
 
     @PostMapping(path = "/addListing")
-    public @ResponseBody int addListing(@RequestParam String username, @RequestParam String itemName, @RequestParam double price, @RequestParam int quantity) {
-        User user = userRepository.getUserByUsername(username);
-        Item item = itemRepository.getItemByName(itemName);
-        return listingRepository.addListing(user.getId(), item.getId(), price, quantity);
+    public @ResponseBody JSONObject addListing(@RequestParam String username, @RequestParam String itemName, @RequestParam double price, @RequestParam int quantity) {
+        JSONObject json = new JSONObject();
+        try {
+            User user = userRepository.getUserByUsername(username);
+            Item item = itemRepository.getItemByName(itemName);
+            json.put("data", listingRepository.addListing(user.getId(), item.getId(), price, quantity));
+
+        } catch (Exception e) {
+            json.put("error", "ADD LISTING ERROR");
+        }
+        return json;
     }
 
     @GetMapping(path = "/getAllListings")

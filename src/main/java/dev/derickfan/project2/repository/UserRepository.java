@@ -67,6 +67,16 @@ public class UserRepository {
         return jdbc.update(sql, username);
     }
 
+    public User authenticate(String username, String password) {
+        String sql = "SELECT * FROM USERS WHERE USERNAME = ? AND PASSWORD = ?";
+        return jdbc.queryForObject(sql, new UserMapper(), username, password);
+    }
+
+    public User signup(String username, String email, String password) {
+        this.addUser(username, email, password);
+        return this.getUserByUsername(username);
+    }
+
     private final class UserMapper implements RowMapper<User> {
 
         @Override
