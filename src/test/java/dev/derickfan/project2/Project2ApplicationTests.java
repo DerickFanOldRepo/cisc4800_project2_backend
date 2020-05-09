@@ -9,12 +9,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 class Project2ApplicationTests {
 
-	@Autowired
-	private MainController controller;
-
-	@Test
-	void contextLoads() throws Exception{
-		assertThat(controller).isNotNull();
-	}
+//	@Autowired
+//	private MainController controller;
+//
+//	@Test
+//	void contextLoads() throws Exception{
+//		assertThat(controller).isNotNull();
+//	}
 
 }
