@@ -246,15 +246,17 @@ public class MainController {
     }
 
     @GetMapping(path = "/getAllListingsByUser")
-    public @ResponseBody List<Listing> getAllListingsByUser(String username) {
-        User user = userRepository.getUserByUsername(username);
-        return listingRepository.getListingsByUserId(user.getId());
+    public @ResponseBody JSONObject getAllListingsByUser(String username) {
+        JSONObject json = new JSONObject();
+        json.put("data", listingRepository.getAllListingsByUsername(username));
+        return json;
     }
 
     @GetMapping(path = "/getAllListingsByItem")
-    public @ResponseBody List<Listing> getAllListingsByItem(String itemName) {
-        Item item = itemRepository.getItemByName(itemName);
-        return listingRepository.getListingsByItemId(item.getId());
+    public @ResponseBody JSONObject getAllListingsByItem(String itemName) {
+        JSONObject json = new JSONObject();
+        json.put("data", listingRepository.getAllListingByItemName(itemName));
+        return json;
     }
 
     @PostMapping(path = "/updateListQuantity")

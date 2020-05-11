@@ -41,16 +41,14 @@ public class ListingRepository {
         return jdbc.query(sql, new ListingMapper());
     }
 
-    public List<Listing> getListingsByUserId(int userId) {
-        String sql = "SELECT * FROM LISTINGS WHERE USER_ID = ?";
-
-        return jdbc.query(sql, new ListingMapper(), userId);
+    public List<Listing> getAllListingsByUsername(String username) {
+        String sql = "SELECT * FROM LISTINGVIEW WHERE USERNAME = ?";
+        return jdbc.query(sql, new ListingMapper(), username);
     }
 
-    public List<Listing> getListingsByItemId(int itemId) {
-        String sql = "SELECT * FROM LISTINGS WHERE ITEM_ID = ?";
-
-        return jdbc.query(sql, new ListingMapper(), itemId);
+    public List<Listing> getAllListingByItemName(String itemName) {
+        String sql = "SELECT * FROM LISTINGVIEW WHERE NAME = ?";
+        return jdbc.query(sql, new ListingMapper(), itemName);
     }
 
     public int deleteListing(int userId, int itemId) {
