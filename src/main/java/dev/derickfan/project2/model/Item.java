@@ -2,11 +2,13 @@ package dev.derickfan.project2.model;
 
 public class Item {
 
+    // Instance Variables
     private int id;
     private String name;
     private Category category;
     private ItemImage imageURL;
 
+    // Constructor
     public Item(int id, String name, Category category, ItemImage imageURL) {
         this.id = id;
         this.name = name;
@@ -14,8 +16,10 @@ public class Item {
         this.imageURL = imageURL;
     }
 
+    // Default Constructor
     public Item() {}
 
+    // Getters and Setters
     public int getId() {
         return id;
     }

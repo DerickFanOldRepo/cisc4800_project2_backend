@@ -2,6 +2,7 @@ package dev.derickfan.project2.model;
 
 public class Listing {
 
+    // Instance variables
     private int id;
     private String username;
     private String itemName;
@@ -9,6 +10,7 @@ public class Listing {
     private String category;
     private String url;
 
+    // Constructor
     public Listing(int id, String username, String itemName, double price, String category, String url) {
         this.id = id;
         this.username = username;
@@ -18,8 +20,10 @@ public class Listing {
         this.url = url;
     }
 
+    // Default Constructor
     public Listing() {}
 
+    // Getters and setters
     public int getId() {
         return id;
     }

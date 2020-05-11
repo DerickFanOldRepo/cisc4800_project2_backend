@@ -2,16 +2,20 @@ package dev.derickfan.project2.model;
 
 public class Category {
 
+    // Instance Variables
     private int id;
     private String name;
 
+    // Default Constructor
     public Category() {}
 
+    // Constructor
     public Category(int id, String name) {
         this.id = id;
         this.name = name;
     }
 
+    //Getters and Setters
     public int getId() {
         return id;
     }

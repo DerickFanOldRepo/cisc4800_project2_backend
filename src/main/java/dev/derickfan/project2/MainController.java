@@ -50,7 +50,7 @@ public class MainController {
 
     // GET REQUEST
     // PARAM: NAME
-    // RETURNS A USER WITH THE GIVEN NAME 
+    // RETURNS A JSONOBJEECT WITH THE USER DATA
     @GetMapping(path = "/getUser")
     public @ResponseBody JSONObject getUser(@RequestParam String username) {
         JSONObject json = new JSONObject();
@@ -58,6 +58,9 @@ public class MainController {
         return json;
     }
 
+    // GET REQUEST
+    // PARAM: USERNAME, PASSWORD
+    // AUTHENTICATES THE USER'S LOGIN AND THEN RETURNS A JSON WITH THE USERS DATA
     @GetMapping(path = "/login")
     public @ResponseBody JSONObject login(@RequestParam String username, @RequestParam String password) {
         JSONObject json = new JSONObject();
@@ -70,6 +73,9 @@ public class MainController {
         return json;
     }
 
+    // POST REQUEST
+    // PARAM: USERNAME, EMAIL, PASSWORD
+    // RETURN A JSON WITH THE NEW USERS DATA AFTER ADDING THEM TO THE DATABASE
     @PostMapping(path = "/signup")
     public @ResponseBody JSONObject login(@RequestParam String username, @RequestParam String email, @RequestParam String password) {
         JSONObject json = new JSONObject();
@@ -208,6 +214,8 @@ public class MainController {
         ItemImage endpoints
     ----------------------------------*/
 
+    // GET REQUEST
+    // RETURNS A JSON WITH ALL THE ITEM IMAGES
     @GetMapping(path = "/getAllItemImages")
     public @ResponseBody JSONObject getAllItemImages() {
         JSONObject json = new JSONObject();
@@ -215,6 +223,8 @@ public class MainController {
         return json;
     }
 
+    // DELETE REQUEST
+    // RETURNS 1 IF SUCCESSFULLY DELETED
     @DeleteMapping(path = "/deleteItemImageById")
     public @ResponseBody int deleteItemImage(@RequestParam int itemImageId) {
         return itemImageRepository.deleteItemImageById(itemImageId);
@@ -224,6 +234,9 @@ public class MainController {
         Listing endpoints
     ----------------------------------*/
 
+    // POST REQUEST
+    // PARAM: USERNAME, ITEMNAME, PRICE, QUANTITY
+    // RETURNS 1 IF ADDING IS A SUCCESS
     @PostMapping(path = "/addListing")
     public @ResponseBody JSONObject addListing(@RequestParam String username, @RequestParam String itemName, @RequestParam double price, @RequestParam int quantity) {
         JSONObject json = new JSONObject();
@@ -238,6 +251,8 @@ public class MainController {
         return json;
     }
 
+    // GET REQUEST
+    // RETURNS A JSONOBJECT WITH ALL THE LISTINGS
     @GetMapping(path = "/getAllListings")
     public @ResponseBody JSONObject getAllListings() {
         JSONObject json = new JSONObject();
@@ -245,6 +260,9 @@ public class MainController {
         return json;
     }
 
+    // GET REQUEST
+    // PARAM: USERNAME
+    // RETURNS A JSONOBJECT WITH ALL THE LISTINGS BY THE USER
     @GetMapping(path = "/getAllListingsByUser")
     public @ResponseBody JSONObject getAllListingsByUser(String username) {
         JSONObject json = new JSONObject();
@@ -252,6 +270,9 @@ public class MainController {
         return json;
     }
 
+    // GET REQUEST
+    // PARAM: ITEMNAME
+    // RETURNS A JSONOBJECT WITH ALL THE LISTING BY THE ITEMNAME
     @GetMapping(path = "/getAllListingsByItem")
     public @ResponseBody JSONObject getAllListingsByItem(String itemName) {
         JSONObject json = new JSONObject();
@@ -259,6 +280,9 @@ public class MainController {
         return json;
     }
 
+    // POST REQUEST
+    // PARAM: USERNAME, ITEMNAME, QUANTITY
+    // RETURNS 1 IF QUANTITY GOT UPDATE IS SUCCESSFUL ELSE RETURNS 0
     @PostMapping(path = "/updateListQuantity")
     public @ResponseBody int updateListQuantity(@RequestParam String username, @RequestParam String itemName, @RequestParam int quantity) {
         User user = userRepository.getUserByUsername(username);
@@ -266,6 +290,9 @@ public class MainController {
         return listingRepository.updateListingQuantity(user.getId(), item.getId(), quantity);
     }
 
+    // POST REQUEST
+    // PARAM: USERNAME, ITEMNAME, PRICE
+    // RETURNS 1 IF PRICE GOT UPDATED ELSE RETURNS 0
     @PostMapping(path = "/updateListPrice")
     public @ResponseBody int updateListPrice(@RequestParam String username, @RequestParam String itemName, @RequestParam double price) {
         User user = userRepository.getUserByUsername(username);
@@ -273,6 +300,9 @@ public class MainController {
         return listingRepository.updateListingPrice(user.getId(), item.getId(), price);
     }
 
+    // DELETE REQUEST
+    // PARAM: USERNAME, ITEMNAME
+    // RETURNS 1 IF THE DELETE IS SUCCESSFUL
     @DeleteMapping(path = "/deleteListing")
     public @ResponseBody int deleteListing(@RequestParam String username, @RequestParam String itemName) {
         User user = userRepository.getUserByUsername(username);

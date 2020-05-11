@@ -67,11 +67,13 @@ public class UserRepository {
         return jdbc.update(sql, username);
     }
 
+    // Returns the user with the matching username and password
     public User authenticate(String username, String password) {
         String sql = "SELECT * FROM USERS WHERE USERNAME = ? AND PASSWORD = ?";
         return jdbc.queryForObject(sql, new UserMapper(), username, password);
     }
 
+    // Returns the newly added user
     public User signup(String username, String email, String password) {
         this.addUser(username, email, password);
         return this.getUserByUsername(username);
