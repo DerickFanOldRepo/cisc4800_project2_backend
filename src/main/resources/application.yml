@@ -1,8 +1,10 @@
+server:
+  port: 5000
 spring:
   datasource:
-#    url: ${host}
-#    username: ${username}
-#    password: ${password}
-    url: ${localHost}
-    username: ${localUsername}
-    password: ${localPassword}
+    url: ${host}
+    username: ${username}
+    password: ${password}
+#    url: ${localHost}
+#    username: ${localUsername}
+#    password: ${localPassword}
